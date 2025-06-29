@@ -1,12 +1,53 @@
-# React + Vite
+🌐 Job Portal 🚀
+A modern Job Portal built with React.js, Supabase, and Clerk for seamless authentication and database management. This app enables users to register/login securely, view job listings, post jobs (for recruiters), and manage applications.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📌 Features
+✅ User authentication with Clerk (Sign up, Login, Logout)
+✅ Role-based access (Job Seeker / Recruiter)
+✅ Post and manage job listings (Recruiter dashboard)
+✅ Browse and apply to jobs (Job Seeker dashboard)
+✅ Store job data in Supabase database
+✅ Real-time updates with Supabase
+✅ Responsive design with React
 
-Currently, two official plugins are available:
+⚙️ Tech Stack
+Frontend: React.js, Tailwind CSS / Material UI (as per your choice)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Authentication: Clerk.dev
 
-## Expanding the ESLint configuration
+Database / Backend: Supabase (PostgreSQL, Storage, Auth)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Deployment: Vercel / Netlify
+
+🚀 Setup Instructions
+1️⃣ Clone the repository
+
+git clone https://github.com/your-username/job-portal.git
+cd job-portal
+
+2️⃣ Install dependencies
+
+npm install
+
+3️⃣ Add environment variables
+REACT_APP_SUPABASE_URL=your-supabase-url
+REACT_APP_SUPABASE_ANON_KEY=your-supabase-anon-key
+REACT_APP_CLERK_FRONTEND_API=your-clerk-frontend-key
+
+4️⃣ Run the development server
+npm run dev
+
+📸 Screenshots
+Home page with featured jobs
+
+Recruiter dashboard for posting jobs
+
+Job seeker dashboard with applied jobs
+
+Clerk-hosted authentication screens
+
+🤝 Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+📜 License
+This project is licensed under the MIT License.
