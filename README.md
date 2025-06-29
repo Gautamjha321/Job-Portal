@@ -22,7 +22,7 @@ Deployment: Vercel / Netlify
 🚀 Setup Instructions
 1️⃣ Clone the repository
 
-git clone https://github.com/your-username/job-portal.git
+git clone https://github.com/Gautamjha321/job-portal.git
 cd job-portal
 
 2️⃣ Install dependencies
