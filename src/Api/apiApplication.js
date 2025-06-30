@@ -27,3 +27,21 @@ export async function applyToJob(token,_,jobData) {
   return data;
 
 }
+
+
+export async function UpdateApplication(token, {job_id},status) {
+   const supabase = await supabaseClient(token);
+  
+
+  const { data, error } = await supabase.from("applications")
+  .update({status})
+  .eq('job_id', job_id)
+  .select();
+
+  if(error || data.length === 0){
+    console.error("Error Updating Application status:",error)
+    return null;
+  }
+  return data;
+
+}

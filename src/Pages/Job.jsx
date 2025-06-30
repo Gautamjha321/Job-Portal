@@ -106,7 +106,7 @@ if (!isLoaded|| loadingJob ) {
   {Job?.applications?.length >0 && Job?.recruiter_id === user?.id &&(
     <div>
       <h2 className='text-2xl sm:text-3xl font-bold'  >Application</h2>
-      {Job?.applications.map(()=>{
+      {Job?.applications.map((application)=>{
         return <ApplicationCard key={application.id} application={application} />
       })}
     </div>
