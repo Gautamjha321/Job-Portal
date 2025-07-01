@@ -1,4 +1,4 @@
-import supabaseClient from "@/components/utils/supabase";
+import supabaseClient, { supabaseUrl } from "@/components/utils/supabase";
 
 export async function getjobs(token, { location, company_id, searchQuery }) {
   const supabase = await supabaseClient(token);
@@ -84,4 +84,55 @@ export async function updateHiringStatus(token,{job_id},isOpen) {
   }
   return data;
 
+}
+
+
+export async function addNewJob(token,_,jobData) {
+   const supabase = await supabaseClient(token);
+  
+
+  const { data, error } = await supabase.from("jobs").insert([jobData]).select();
+
+  if(error){
+    console.error("Error Creating a job :",error)
+    return null;
+  }
+  return data;
+
+}
+
+export async function addNewCompany(token, _, companyData) {
+  const supabase = await supabaseClient(token);
+
+  // 1. Upload the logo file to Storage
+  const random = Math.floor(Math.random() * 90000);
+  const filename = `logo-${random}-${companyData.name}`;
+  const { error: storageError } = await supabase.storage
+    .from('company-logo')
+    .upload(filename, companyData.logo);
+
+  if (storageError) {
+    console.error("Error uploading company logo", storageError);
+    return null;
+  }
+
+  const logo_url = `${supabaseUrl}/storage/v1/object/public/company-logo/${filename}`;
+
+  // 2. Only include fields you want to store in the table
+  const newCompany = {
+    name: companyData.name,
+    logo_url,
+  };
+
+  const { data, error } = await supabase
+    .from("companies")
+    .insert([newCompany])
+    .select();
+
+  if (error) {
+    console.error("Error submitting company:", error);
+    return null;
+  }
+
+  return data;
 }
