@@ -1,5 +1,6 @@
 import supabaseClient, { supabaseUrl } from "@/components/utils/supabase";
 
+
 export async function getjobs(token, { location, company_id, searchQuery }) {
   const supabase = await supabaseClient(token);
   
@@ -153,6 +154,41 @@ export async function getSaveJob(token) {
   return data;
 }
 
+
+export async function getMyJobs(token,{ recruiter_id }) {
+  const supabase = await supabaseClient(token);
+
+  const { data, error } = await supabase
+    .from("jobs")
+    .select("*, company:companies(name,logo_url)")
+    .eq("recruiter_id", recruiter_id);
+
+  if (error) {
+    console.error("Error Fetching My Jobs:", error);
+    return [];
+  }
+
+  return data;
+}
+
+
+export async function DeleteJob(token,{ job_id }) {
+  const supabase = await supabaseClient(token);
+
+  const { data, error } = await supabase
+    .from("jobs")
+    .delete()
+    .eq("id", job_id)
+    .select();
+  
+
+  if (error) {
+    console.error("Error Deleting  Jobs:", error);
+    return [];
+  }
+
+  return data;
+}
 
 
 

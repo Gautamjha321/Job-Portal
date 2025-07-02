@@ -50,9 +50,10 @@ function ApplicationCard({ application, isCandidate = false }) {
       )}
       <CardHeader>
         <CardTitle className="flex justify-between items-center gap-2 text-lg font-semibold">
-          {isCandidate
-            ? `${application?.job?.title} at ${application?.job?.company?.name}`
-            : application?.name}
+         {isCandidate
+  ? `${application?.jobs?.title} at ${application?.jobs?.company?.name}`
+  : application?.name}
+
           <Download
             size={18}
             className="bg-white text-black rounded-full h-8 w-8 p-1.5 cursor-pointer"

@@ -40,7 +40,15 @@ function Landing() {
 
         </Carousel>
         {/* banner */}
-        <img src="/banner.jpeg" alt="banner" />
+        <div className="px-4 md:px-8 lg:px-16">
+  <img
+  src="/banner.jpg"
+  alt="Banner"
+  className="block mx-auto w-full h-48 md:h-64 lg:h-80 object-cover rounded-lg shadow-lg"
+/>
+
+</div>
+
 
         
        {/* card */}
