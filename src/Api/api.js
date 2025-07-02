@@ -136,3 +136,28 @@ export async function addNewCompany(token, _, companyData) {
 
   return data;
 }
+
+
+export async function getSaveJob(token) {
+  const supabase = await supabaseClient(token);
+
+  const { data, error } = await supabase
+    .from("saved_jobs")
+    .select("id, user_id, job:jobs(*,company:companies(name,logo_url))");
+
+  if (error) {
+    console.error("Error Fetching Saved Jobs:", error);
+    return [];
+  }
+
+  return data;
+}
+
+
+
+
+
+
+
+
+
