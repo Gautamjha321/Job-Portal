@@ -53,34 +53,74 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
   useEffect(() => {
     if (dataAddCompany?.length > 0) {
       fetchCompanies();
-      reset();  // clear form after successful submit
+      reset();
     }
   }, [dataAddCompany, fetchCompanies, reset]);
 
   return (
     <Drawer>
       <DrawerTrigger>
-        <Button type="button" size="sm" variant="secondary">Add Company</Button>
+        <Button type="button" size="sm" variant="secondary">
+          Add Company
+        </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="max-w-lg mx-auto">
         <DrawerHeader>
-          <DrawerTitle>Add a New Company</DrawerTitle>
+          <DrawerTitle className="text-center text-2xl font-bold">
+            Add a New Company
+          </DrawerTitle>
         </DrawerHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className='flex gap-2 p-4 pb-0'>
-          <Input placeholder="Company name" {...register("name")} />
-          <Input type='file' accept="image/*" className="file:text-gray-500" {...register("logo")} />
-          <Button type="submit" variant="destructive" className="w-40">Add</Button>
-        </form>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 px-6 pb-0"
+        >
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Company Name</label>
+            <Input placeholder="Enter company name" {...register("name")} />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
+          </div>
 
-        {errors.name && <p className='text-red-500 text-sm px-4'>{errors.name.message}</p>}
-        {errors.logo && <p className='text-red-500 text-sm px-4'>{errors.logo.message}</p>}
-        {errorAddCompany?.message && <p className='text-red-500 text-sm px-4'>{errorAddCompany?.message}</p>}
-        {loadingAddCompany && <BarLoader width={"100%"} color='#36d7b7' />}
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Company Logo</label>
+            <Input
+              type="file"
+              accept="image/png, image/jpeg"
+              className="file:text-gray-500"
+              {...register("logo")}
+            />
+            {errors.logo && (
+              <p className="text-red-500 text-sm">{errors.logo.message}</p>
+            )}
+          </div>
+
+          <Button
+            type="submit"
+            variant="destructive"
+            className="w-full sm:w-48 self-center"
+          >
+            Add Company
+          </Button>
+
+          {errorAddCompany?.message && (
+            <p className="text-red-500 text-sm text-center">
+              {errorAddCompany?.message}
+            </p>
+          )}
+          {loadingAddCompany && (
+            <div className="flex justify-center py-2">
+              <BarLoader width="100%" color="#36d7b7" />
+            </div>
+          )}
+        </form>
 
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="secondary" type="button">Cancel</Button>
+            <Button variant="secondary" type="button">
+              Cancel
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

@@ -1,47 +1,79 @@
-import { Button } from '@/components/ui/button'
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import companies from '../components/Data/companies.json'
-import Autoplay from 'embla-carousel-autoplay'
-import { Card,  CardContent,  CardHeader, CardTitle } from '@/components/ui/card'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import faqs from '../components/Data/faq.json'
-
+import { Button } from '@/components/ui/button';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import companies from '../components/Data/companies.json';
+import Autoplay from 'embla-carousel-autoplay';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import faqs from '../components/Data/faq.json';
 
 function Landing() {
-  return  <main className='flex flex-col gap-10 sm:gap-20 py-10 sm:py-20' >
-        
-        <section className='text-center'>
-          <h1 className='flex flex-col items-center justify-center gradient-title  text-4xl font-extrabold sm:text-6xl lg:text-8xl tracking-tighter py-4 ' >Find Your dreams Jobs <span className='flex items-center gap-2 sm:gap-6' >and get <img src="/logo.png" alt="Hirdd logo" className='h-14 sm:h-24 lg:h-32' /></span> </h1>
-          <p className='text-gray-300 sm:mt-4 text-xs sm:text-xl'>
-            Explore thousands of job listing or find the perfect candidate
-          </p>
-        </section>
-        <div className='flex gap-6 items-center justify-center' >
-          
-          <Link to='/jobs' >
-          <Button variant="blue"  size='xl'>Find Jobs </Button>
-          
+  return (
+    <main className="flex flex-col gap-14 sm:gap-24 py-10 sm:py-20">
+      {/* Hero Section */}
+      <section className="text-center px-4">
+        <h1 className="flex flex-col items-center justify-center text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight py-4">
+          Find Your Dream Jobs
+          <span className="flex items-center gap-3 sm:gap-6 mt-2">
+            and get{' '}
+            <img
+              src="/logo.png"
+              alt="Hirdd logo"
+              className="h-12 sm:h-20 lg:h-28 object-contain"
+            />
+          </span>
+        </h1>
+        <p className="max-w-2xl mx-auto text-gray-600 mt-4 text-sm sm:text-lg">
+          Explore thousands of job listings or find the perfect candidate.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center mt-8">
+          <Link to="/jobs">
+            <Button variant="blue" size="xl" className="px-8 py-4 text-lg">
+              Find Jobs
+            </Button>
           </Link>
-           <Link to='/post-job' >
-          <Button variant="destructive"  size='xl' >Post a job </Button>
-          
+          <Link to="/post-job">
+            <Button variant="destructive" size="xl" className="px-8 py-4 text-lg">
+              Post a Job
+            </Button>
           </Link>
         </div>
+      </section>
 
-        <Carousel plugins={[Autoplay({delay:2000})]} className='w-full py-10' >
-
-          <CarouselContent className='flex gap-5 sm:gap-20 items-center' >{companies.map(({name1,id,path })=>{
-            return <CarouselItem key={id}  className='basis-1/3 lg:basis-1/6' >
-              <img src={path} alt={name1} className='h-9 sm:h-14 object-contain'  />
-            </CarouselItem>
-          })}</CarouselContent>
-
+      {/* Company Carousel */}
+      <section className="py-10 px-4 max-w-7xl mx-auto w-full">
+        <Carousel plugins={[Autoplay({ delay: 2500 })]} className="w-full">
+          <CarouselContent className="flex gap-6 sm:gap-12 items-center">
+            {companies.map(({ name1, id, path }) => (
+              <CarouselItem
+                key={id}
+                className="flex justify-center basis-1/2 sm:basis-1/4 lg:basis-1/6"
+              >
+                <img
+                  src={path}
+                  alt={name1}
+                  className="h-10 sm:h-16 object-contain opacity-80 hover:opacity-100 transition duration-300"
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
         </Carousel>
-        {/* banner */}
-        <div className="px-4 md:px-8 lg:px-16">
- <img
+      </section>
+
+      {/* Banner */}
+      
+       <img
   src="/banner.jpg"
   alt="Banner"
   className="
@@ -53,55 +85,55 @@ function Landing() {
   "
 />
 
-</div>
+      
 
+      {/* Cards */}
+      <section className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+        <Card className="hover:shadow-lg transition rounded-xl border">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">For Job Seekers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600">
+              Search and apply for jobs, track your applications, and find your dream role effortlessly.
+            </p>
+          </CardContent>
+        </Card>
 
-        
-       {/* card */}
-        <section className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <Card>
-  <CardHeader>
-    <CardTitle>For Job Seakers </CardTitle>
-    
-  </CardHeader>
-  <CardContent>
-    <p>Search and apply for jobs, track application, and more </p>
-  </CardContent>
- 
-</Card>
+        <Card className="hover:shadow-lg transition rounded-xl border">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">For Employers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600">
+              Post job openings, manage applicants, and hire the perfect talent for your company.
+            </p>
+          </CardContent>
+        </Card>
+      </section>
 
-       <Card>
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-   
-  </CardHeader>
-  <CardContent>
-    <p>Card Content</p>
-  </CardContent>
- 
-</Card>
-
-          
-        </section>
-
-        {/* according */}
-
-        <Accordion  type="single" collapsible className='ml-10'>
-          {faqs.map((faq, index)=>{
-
-          return (
-  <AccordionItem key={index} value={`item-${index+1}`}>
-    <AccordionTrigger >{faq.question}</AccordionTrigger>
-    <AccordionContent >
-      {faq.answer}
-    </AccordionContent>
-  
-  </AccordionItem>
-          ) })}
-</Accordion>
-
-  </main>
-  
+      {/* FAQ Accordion */}
+      <section className="max-w-4xl mx-auto px-4">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6">Frequently Asked Questions</h2>
+        <Accordion type="single" collapsible className="space-y-4">
+          {faqs.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index + 1}`}
+              className="border rounded-lg overflow-hidden"
+            >
+              <AccordionTrigger className="px-4 py-3 text-left text-lg font-medium  transition">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-gray-600">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
+    </main>
+  );
 }
 
-export default Landing
+export default Landing;

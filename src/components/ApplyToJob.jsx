@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -8,17 +8,17 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { z } from "zod"
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { BarLoader } from 'react-spinners'
-import UseFetch from '@/Hooks/use-fetch'
-import { applyToJob } from '@/Api/apiApplication'
+} from "@/components/ui/drawer";
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { z } from "zod";
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { BarLoader } from 'react-spinners';
+import UseFetch from '@/Hooks/use-fetch';
+import { applyToJob } from '@/Api/apiApplication';
 
 const schema = z.object({
   Experience: z.number().min(0, "Years of experience must be a positive number"),
@@ -34,14 +34,18 @@ const schema = z.object({
         ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file[0].type),
       { message: "Resume must be a PDF or Word document" }
     )
-})
+});
 
 const ApplyJobDrawer = ({ user, job, fetchJob, applied = false }) => {
-
-  
-  const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm({
     resolver: zodResolver(schema),
-  })
+  });
 
   const {
     loading: loadingApply,
@@ -49,128 +53,136 @@ const ApplyJobDrawer = ({ user, job, fetchJob, applied = false }) => {
     fn: fnApply,
   } = UseFetch(applyToJob);
 
-const onSubmit = (data) => {
-  fnApply({
-    experience: data.Experience,
-    skills: data.skills,
-    education: data.education,
-    resume: data.resume[0],
-    job_id: job.id,
-    candidate_id: user.id,
-    name: user.fullName,
-    status: "applied",
-  }).then(() => {
-    fetchJob();
-    reset();
-  })
-}
-
+  const onSubmit = (data) => {
+    fnApply({
+      experience: data.Experience,
+      skills: data.skills,
+      education: data.education,
+      resume: data.resume[0],
+      job_id: job.id,
+      candidate_id: user.id,
+      name: user.fullName,
+      status: "applied",
+    }).then(() => {
+      fetchJob();
+      reset();
+    });
+  };
 
   return (
-    <div>
-      <Drawer>
-        {applied || !job?.isOpen ? (
-          // Already applied OR job closed → show static button
-          <Button variant="outline" className="w-full" disabled>
-            {applied ? "Already Applied" : "Job Closed"}
+    <Drawer>
+      {applied || !job?.isOpen ? (
+        <Button variant="outline" className="w-full" disabled>
+          {applied ? "Already Applied" : "Job Closed"}
+        </Button>
+      ) : (
+        <DrawerTrigger asChild>
+          <Button variant="outline" className="w-full">
+            Apply Now
           </Button>
-        ) : (
-          // Can apply → show DrawerTrigger
-          <DrawerTrigger asChild>
-            <Button variant="outline" className="w-full">
-              Apply Now
-            </Button>
-          </DrawerTrigger>
-        )}
+        </DrawerTrigger>
+      )}
 
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>Apply for {job?.title} at {job?.company?.name}</DrawerTitle>
-            <DrawerDescription>Please Fill the Form Below</DrawerDescription>
-          </DrawerHeader>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>
+            Apply for <strong>{job?.title}</strong> at <strong>{job?.company?.name}</strong>
+          </DrawerTitle>
+          <DrawerDescription className="text-sm text-gray-500">
+            Complete the form to submit your application.
+          </DrawerDescription>
+        </DrawerHeader>
 
-          <form
-            className="flex flex-col gap-4 p-4 pb-0"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+        <form onSubmit={handleSubmit(onSubmit)} className="px-4 pb-2 space-y-4">
+          {/* Experience */}
+          <div>
+            <Label>Years of Experience</Label>
             <Input
               type="number"
-              placeholder="Years of Experience"
-              className="flex-1"
+              placeholder="e.g., 2"
               {...register("Experience", { valueAsNumber: true })}
             />
             {errors.Experience && (
-              <p className="text-red-500 text-sm">{errors.Experience.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.Experience.message}</p>
             )}
+          </div>
 
+          {/* Skills */}
+          <div>
+            <Label>Skills</Label>
             <Input
               type="text"
-              placeholder="Skills (comma separated)"
-              className="flex-1"
+              placeholder="e.g., React, Node.js"
               {...register("skills")}
             />
             {errors.skills && (
-              <p className="text-red-500 text-sm">{errors.skills.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.skills.message}</p>
             )}
+          </div>
 
+          {/* Education Level */}
+          <div>
+            <Label className="mb-1 block">Education Level</Label>
             <Controller
               name="education"
               control={control}
               render={({ field }) => (
                 <RadioGroup value={field.value} onValueChange={field.onChange}>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Beginner" id="beginner" />
-                    <Label htmlFor="beginner">Beginner</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Intermediate" id="intermediate" />
-                    <Label htmlFor="intermediate">Intermediate</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Experienced" id="experienced" />
-                    <Label htmlFor="experienced">Experienced</Label>
-                  </div>
+                  {["Beginner", "Intermediate", "Experienced"].map((level) => (
+                    <div key={level} className="flex items-center space-x-2">
+                      <RadioGroupItem value={level} id={level} />
+                      <Label htmlFor={level}>{level}</Label>
+                    </div>
+                  ))}
                 </RadioGroup>
               )}
             />
             {errors.education && (
-              <p className="text-red-500 text-sm">{errors.education.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.education.message}</p>
             )}
+          </div>
 
+          {/* Resume Upload */}
+          <div>
+            <Label>Resume</Label>
             <Input
               type="file"
               accept=".pdf,.doc,.docx"
-              className="flex-1 file:text-gray-500"
+              className="file:text-gray-500"
               {...register("resume")}
             />
             {errors.resume && (
-              <p className="text-red-500 text-sm">{errors.resume.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.resume.message}</p>
             )}
+          </div>
 
-            {errorApply?.message && (
-              <p className="text-red-500 text-sm">{errorApply?.message}</p>
-            )}
+          {/* Submission Feedback */}
+          {errorApply?.message && (
+            <p className="text-red-500 text-sm mt-1">{errorApply.message}</p>
+          )}
 
-            {loadingApply && (
-              <BarLoader className="mb-4" width="100%" color="#36d7b7" />
-            )}
+          {loadingApply && (
+            <div className="py-2">
+              <BarLoader width="100%" color="#36d7b7" />
+            </div>
+          )}
 
-            <Button type="submit" variant="blue" size="lg">
-              Submit Application
+          {/* Submit */}
+          <Button type="submit" variant="blue" size="lg" className="w-full">
+            Submit Application
+          </Button>
+        </form>
+
+        <DrawerFooter>
+          <DrawerClose asChild>
+            <Button variant="outline" size="lg" className="w-full">
+              Cancel
             </Button>
-          </form>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+};
 
-          <DrawerFooter>
-            <DrawerClose asChild>
-              <Button variant="outline" size="lg">
-                Cancel
-              </Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </div>
-  )
-}
-
-export default ApplyJobDrawer
+export default ApplyJobDrawer;

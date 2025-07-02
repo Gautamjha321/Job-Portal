@@ -1,33 +1,32 @@
 import CreatedApplications from '@/components/Created-Application';
 import CreatedJobs from '@/components/Created-Jobs';
-import { useUser } from '@clerk/clerk-react'
-import React, { use } from 'react'
+import { useUser } from '@clerk/clerk-react';
+import React from 'react';
 import { BarLoader } from 'react-spinners';
 
 function MyJob() {
+  const { isLoaded, user } = useUser();
 
-  const {isLoaded,user} = useUser();
+  if (!isLoaded) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <BarLoader width="100%" color="#36d7b7" />
+      </div>
+    );
+  }
 
-if(!isLoaded ){
-  return <BarLoader className='mb-4' width={"100%"} color='#36d7b7' />
-}
+  const isCandidate = user?.unsafeMetadata?.role === "candidate";
+  const heading = isCandidate ? "My Applications" : "My Jobs";
 
   return (
-    <div>
- 
- <h1 className='font-extrabold  text-5xl sm:text-7xl text-center pb-8 '> 
-  
-  {user?.unsafeMetadata?.role === "candidate" ? "My Applications" : "My Jobs" }
+    <div className="max-w-5xl mx-auto px-4 py-8">
+      <h1 className="text-center text-4xl sm:text-5xl md:text-6xl font-extrabold mb-10">
+        {heading}
+      </h1>
 
-    </h1>
-
-    {user?.unsafeMetadata?.role === "candidate" ? ( <CreatedApplications />
-    
-    ) : ( <CreatedJobs/>
-    )}
-
+      {isCandidate ? <CreatedApplications /> : <CreatedJobs />}
     </div>
-  )
+  );
 }
 
-export default MyJob
+export default MyJob;

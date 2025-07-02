@@ -1,42 +1,58 @@
 import { getMyJobs } from '@/Api/api';
 import UseFetch from '@/Hooks/use-fetch';
 import { useUser } from '@clerk/clerk-react';
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { BarLoader } from 'react-spinners';
 import JobCard from './JobCard';
 
 function CreatedJobs() {
+  const { user } = useUser();
 
-  const {user} =useUser();
-
-  const {loading:loadingCreatedJobs, data: createdJobs, fn: fnCreatedJobs} = UseFetch(getMyJobs, {
+  const {
+    loading: loadingCreatedJobs,
+    data: createdJobs,
+    fn: fnCreatedJobs
+  } = UseFetch(getMyJobs, {
     recruiter_id: user.id,
   });
 
   useEffect(() => {
     fnCreatedJobs();
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  if(loadingCreatedJobs){
-    return <BarLoader className='mb-4' width={"100%"} color='#36d7b7' />
+  if (loadingCreatedJobs) {
+    return (
+      <div className="flex justify-center py-8">
+        <BarLoader width="100%" color="#36d7b7" />
+      </div>
+    );
   }
 
   return (
-    <div>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
 
- <div className='mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4 ' > 
       {createdJobs?.length ? (
- createdJobs.map((job)=>{
-  return <JobCard key={job.id} job={job} OnJobSaved={fnCreatedJobs} isMyJob />
-
- })
-      ) :(
-         <div> No Jobs </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {createdJobs.map((job) => (
+            <JobCard
+              key={job.id}
+              job={job}
+              OnJobSaved={fnCreatedJobs}
+              isMyJob
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center text-gray-500 py-12">
+          <p className="text-lg sm:text-xl">
+            You haven’t posted any jobs yet.
+          </p>
+        </div>
       )}
-    </div>
-
-    </div>
-  )
+    </section>
+  );
 }
 
 export default CreatedJobs;
