@@ -41,10 +41,16 @@ function Landing() {
         </Carousel>
         {/* banner */}
         <div className="px-4 md:px-8 lg:px-16">
-  <img
+ <img
   src="/banner.jpg"
   alt="Banner"
-  className="block mx-auto w-full h-48 md:h-64 lg:h-80 object-cover rounded-lg shadow-lg"
+  className="
+    block mx-auto
+    w-full max-w-7xl
+    h-48 sm:h-64 md:h-80 lg:h-[28rem] xl:h-[32rem]
+    object-cover
+    rounded-lg shadow-lg
+  "
 />
 
 </div>
