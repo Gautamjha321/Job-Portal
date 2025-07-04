@@ -1,53 +1,109 @@
-🌐 Job Portal 🚀
-A modern Job Portal built with React.js, Supabase, and Clerk for seamless authentication and database management. This app enables users to register/login securely, view job listings, post jobs (for recruiters), and manage applications.
+# 🌐 Hirrd – Job Portal
 
-📌 Features
-✅ User authentication with Clerk (Sign up, Login, Logout)
-✅ Role-based access (Job Seeker / Recruiter)
-✅ Post and manage job listings (Recruiter dashboard)
-✅ Browse and apply to jobs (Job Seeker dashboard)
-✅ Store job data in Supabase database
-✅ Real-time updates with Supabase
-✅ Responsive design with React
+**Hirrd** is a modern, full-stack Job Portal web app built with **React.js**, **Supabase**, and **Clerk**.  
+It enables recruiters to post jobs and manage listings, while job seekers can browse, save, and apply easily — all with secure, role-based authentication.
 
-⚙️ Tech Stack
-Frontend: React.js, Tailwind CSS / Material UI (as per your choice)
+---
 
-Authentication: Clerk.dev
+## ✨ Features
 
-Database / Backend: Supabase (PostgreSQL, Storage, Auth)
+✅ **Secure Authentication with Clerk**  
+- Sign-up / Login for Recruiters and Job Seekers  
+- Role-based dashboards  
 
-Deployment: Vercel / Netlify
+✅ **Job Posting & Management** *(Recruiter)*  
+- Post new jobs with detailed info  
+- View and manage posted jobs  
 
-🚀 Setup Instructions
+✅ **Job Search & Apply** *(Job Seeker)*  
+- Browse all available jobs  
+- Apply directly from the portal  
+- Save jobs to view later  
+
+✅ **Responsive UI**  
+- Fully responsive design for desktop, tablet, and mobile  
+
+✅ **Real-time Database with Supabase**  
+- Instant updates on job listings  
+- Scalable and secure backend  
+
+✅ **Modern Frontend with React**  
+- Clean, dynamic user interface  
+- Smooth navigation and component-based structure  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js  
+- **Authentication:** Clerk.dev  
+- **Backend / Database:** Supabase (PostgreSQL)  
+- **Styling:** CSS / Tailwind (optional, replace with what you use)  
+- **Deployment:** Vercel / Netlify / GitHub Pages  
+
+---
+
+## 📸 Screenshots
+
+| Login / Register | Recruiter Dashboard | Job Listings | Job Details |
+|-------------------|---------------------|---------------|-------------|
+| ![Login](public/Home.png) | ![Dashboard](public/Latest%20Job.png) | ![Listings](public/listed.png) | ![Details](public/Post%20job.png) |
+
+*(Replace these with your actual screenshots in a `/screenshots` folder)*
+
+---
+
+## 🌐 Live Demo
+
+👉 [Live Website](https://hirrd-job-portal1.netlify.app/) *(replace with your actual deployed link)*
+
+---
+
+## 💻 GitHub Repository
+
+👉 [GitHub Repository](https://github.com/Gautamjha321/Job-Portal) *(replace with your repo link)*
+
+---
+
+## ⚙️ Installation & Local Setup
+
 1️⃣ Clone the repository
-
-git clone https://github.com/Gautamjha321/job-portal.git
-cd job-portal
+```bash
+https://github.com/Gautamjha321/Job-Portal.git
 
 2️⃣ Install dependencies
 
+bash
+Copy
+Edit
 npm install
+3️⃣ Configure environment variables
 
-3️⃣ Add environment variables
-REACT_APP_SUPABASE_URL=your-supabase-url
-REACT_APP_SUPABASE_ANON_KEY=your-supabase-anon-key
-REACT_APP_CLERK_FRONTEND_API=your-clerk-frontend-key
+Create a .env file in the root folder with:
 
-4️⃣ Run the development server
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+VITE_CLERK_PUBLISHABLE_KEY=your-clerk-frontend-key
+
+4️⃣ Start the development server
+
+bash
+Copy
+Edit
 npm run dev
 
-📸 Screenshots
-Home page with featured jobs
+🚀 Deployment
+Deploy on Vercel, Netlify, or GitHub Pages.
 
-Recruiter dashboard for posting jobs
+Add environment variables in your deployment settings.
 
-Job seeker dashboard with applied jobs
-
-Clerk-hosted authentication screens
+Build and deploy in a single click!
 
 🤝 Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+Contributions, issues, and feature requests are welcome!
+Feel free to fork the repo and open a pull request.
 
 📜 License
 This project is licensed under the MIT License.
+Free to use, modify, and share.
+
