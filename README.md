@@ -55,13 +55,13 @@ It enables recruiters to post jobs and manage listings, while job seekers can br
 
 ## 🌐 Live Demo
 
-👉 [Live Website](https://hirrd-job-portal1.netlify.app/) *(replace with your actual deployed link)*
+👉 [Live Website](https://hirrd-job-portal1.netlify.app/)
 
 ---
 
 ## 💻 GitHub Repository
 
-👉 [GitHub Repository](https://github.com/Gautamjha321/Job-Portal) *(replace with your repo link)*
+👉 [GitHub Repository](https://github.com/Gautamjha321/Job-Portal) 
 
 ---
 
